@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 import sys
 
 class Spiral(object):
@@ -47,16 +45,22 @@ class Spiral(object):
         
         return r
     
-    def __init__(self, radius):
-        self.radius = range(radius * -1 -1, radius + 1)
-        self.grid = {}
-        for x in self.radius:
-            self.grid[x] = {}
-            for y in self.radius:
-                self.grid[x][y] = self.position(x,y)
-    
-    def show(self):
+    def __init__(self, radius=None):
+        self.radius = radius
+      
+    def generate(self, radius=None):
+        if radius:
+            self.radius = radius
         
+        self.grid = {}
+        if self.radius:
+            r = range(self.radius * -1 -1, self.radius + 1)
+            for x in r:
+                self.grid[x] = {}
+                for y in r:
+                    self.grid[x][y] = self.position(x,y)
+
+    def show(self):
         for y in reversed(self.radius):
             for x in self.radius:
                 print "%d\t" % (self.position(x,y)),
