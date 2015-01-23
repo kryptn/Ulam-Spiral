@@ -5,7 +5,8 @@ This script calculates the number at (x,y) in a [Ulam Spiral](http://en.wikipedi
 
 ### To Do ###
 
-* Expand tests
-* Integrate into [Flask](http://flask.pocoo.org/)
+* Always expand tests
+* Make RESTful
+ * Expose slices
+* Make it database driven
 * Add shiny [jQuery things](https://github.com/ianli/jquery-infinite-drag)
-* Make RESTful and database driven
