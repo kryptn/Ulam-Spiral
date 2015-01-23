@@ -47,6 +47,9 @@ class Spiral(object):
     
     def __init__(self, radius=None):
         self.radius = radius
+        
+        if radius:
+          self.generate()
       
     def generate(self, radius=None):
         if radius:
@@ -61,7 +64,8 @@ class Spiral(object):
                     self.grid[x][y] = self.position(x,y)
 
     def show(self):
-        for y in reversed(self.radius):
-            for x in self.radius:
+        r = range(self.radius * -1 - 1, self.radius + 1)
+        for y in reversed(r):
+            for x in r:
                 print "%d\t" % (self.position(x,y)),
             print '\n'
