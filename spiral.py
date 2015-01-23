@@ -1,6 +1,17 @@
 import sys
+import math
 
 class Spiral(object):
+  
+    def prime(self, n):
+        if n < 2:
+            return False
+        else:
+            for x in xrange(2,int(math.sqrt(n))+1):
+                if n % x == 0:
+                  return False
+            return True
+
     def base(self, x, y):
         """
         returns base of x value in the spiral
@@ -60,9 +71,14 @@ class Spiral(object):
                 for y in r:
                     self.grid[x][y] = self.position(x,y)
 
-    def show(self):
+    def show(self, prime=False):
         r = range(self.radius * -1 - 1, self.radius + 1)
         for y in reversed(r):
             for x in r:
-                print "%d\t" % (self.position(x,y)),
+                if prime:
+                    v = 1 if self.prime(self.position(x,y)) else 0
+                else:
+                    v = self.position(x,y)
+                
+                print "%d\t" % (v),
             print '\n'
