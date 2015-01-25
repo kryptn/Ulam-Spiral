@@ -13,7 +13,8 @@ def index():
 class SpiralClient(restful.Resource):
     def get(self, x, y):
         pos = spiral.position(int(x),int(y))
-        return {'x':x,'y':y,'n':pos}
+        prime = spiral.prime(pos)
+        return {'x':x,'y':y,'n':pos,'prime':prime}
         
 api.add_resource(SpiralClient, '/api/<string:x>/<string:y>')
 
