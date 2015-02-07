@@ -37,20 +37,14 @@ class Spiral(object):
     def position(self, x, y):
         bases = self.base(x,y)
         
-        if abs(x) == y and x < 0: # even squares
-            r = bases[0]**2
-        elif x*-1 == y+1 and x >= 0: # odd squares
-            r = bases[0]**2
-        elif x*-1 > abs(y) or x >= abs(y): # left and right
+        if x*-1 > abs(y) or x >= abs(y): # left and right
             sign = cmp(bases[0], 0)
             r = (bases[0]-2*sign)**2 + abs(bases[0]) + y*sign - x*sign - sign-1
         elif y*-1 >= abs(x) or y > abs(x): # top and bottom
             sign = cmp(bases[1] , 0)
             r = bases[1]**2 + abs(bases[1]) - x*sign - y*sign * 3
         else:
-            r = -1
-            print >> sys.stderr, "Totally shouldn't happen %d,%d" % (x, y)
-        
+            r = bases[0]**2
         return r
     
     def __init__(self, radius=None):
