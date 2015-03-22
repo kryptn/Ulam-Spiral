@@ -16,7 +16,7 @@
 
       function xhr(resource){
         x = new XMLHttpRequest();
-        x.open("GET", resource, false);
+        x.open("GET", resource+"?", false);
         x.send();
         return JSON.parse(x.response);
       };
@@ -50,7 +50,7 @@
         var TypeOptions = {
           getTileUrl: function(coord, zoom){
             var r = xhr("api/"+zoom+"/"+coord.x+"/"+coord.y*-1);
-            image = "static/"+r.data+".png";
+            image = "static/"+r.results.value+".png";
             return image;
           },
           tileSize: new google.maps.Size(25,25),

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_from_directory, Response
+from flask import Flask, render_template, send_from_directory, jsonify
 from flask.ext import restful
 from spiral import Spiral
 import json
@@ -25,9 +25,10 @@ class SpiralClient(restful.Resource):
                 data = 'black'
             else:
                 data = 'white'
+
+            r = {'value':data}
         
-        r = Response(response=json.dumps({'data':data}), status=200, mimetype="application/json")
-        return r 
+        return jsonify(results=r) 
 
 
 
