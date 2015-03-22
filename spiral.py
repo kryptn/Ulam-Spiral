@@ -2,15 +2,34 @@ import sys
 import math
 
 class Spiral(object):
-  
+
+    def isqrt(self, n):
+        x = n
+        y = (x + 1) // 2
+        while y < x:
+            x = y
+            y = (x + n // x) // 2
+        return x
+
+    def lrange(self, start, stop, step):
+        while start < stop:
+            yield start
+            start += step
+
     def prime(self, n):
-        if n < 2:
-            return False
-        else:
-            for x in xrange(2,int(math.sqrt(n))+1):
-                if n % x == 0:
-                  return False
+        if n == 2:
             return True
+        if (n < 2) or (n % 2 == 0):
+            return False
+        return all(n % i for i in self.lrange(3, int(self.isqrt(n)) + 1, 2))
+    
+    @staticmethod
+    def tempprime(n):
+        if n == 2:
+            return True
+        if (n < 2) or (n % 2 == 0):
+            return False
+        return all(n % i for i in xrange(3,int(math.sqrt(n))+1, 2))
 
     def base(self, x, y):
         """
@@ -31,7 +50,7 @@ class Spiral(object):
         if y < 0:
             ry -= 1
         
-        return rx,ry
+        return long(rx),long(ry)
         
         
     def position(self, x, y):
