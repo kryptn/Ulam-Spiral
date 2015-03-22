@@ -7,6 +7,7 @@
         height: 100%;
         margin: 0px;
         padding: 0px;
+        background-color: white;
       }
     </style>
     <script>
@@ -22,16 +23,20 @@
       };
 
       CoordMapType.prototype.getTile = function(coord, zoom, ownerDocument){
-        var r = xhr("api/position/"+coord.x+"/"+coord.y*-1);
+        var r = xhr("api/"+zoom+"/"+coord.x+"/"+coord.y*-1);
         var div = ownerDocument.createElement('div');
-        div.innerHTML = coord + " " + xhr.responseText;
+        div.innerHTML = r.results.position;
         div.style.width = this.tileSize.width + 'px';
         div.style.height = this.tileSize.height + 'px';
         div.style.color = "red";
+        //div.style.padding = '10px';
         div.style.fontSize = '10';
-        div.style.borderStyle = 'solid';
-        div.style.borderWidth = '1px';
-        div.style.borderColor = '#aaaaaa';
+        if(r.results.prime){
+            div.style.backgroundColor = 'black';
+        };
+        //div.style.borderStyle = 'solid';
+        //div.style.borderWidth = '1px';
+        //div.style.borderColor = '#aaaaaa';
         return div;
       };
 
@@ -49,11 +54,11 @@
 
         var TypeOptions = {
           getTileUrl: function(coord, zoom){
-            var r = xhr("api/"+zoom+"/"+coord.x+"/"+coord.y*-1);
-            image = "static/"+r.results.value+".png";
-            return image;
+            //var r = xhr("api/"+zoom+"/"+coord.x+"/"+coord.y*-1);
+            //image = "static/"+r.results.value+".png";
+            //return image;
           },
-          tileSize: new google.maps.Size(25,25),
+          tileSize: new google.maps.Size(50,50),
           maxZoom: 2,
           minZoom: 2,
           name: 'Ulam',
@@ -64,7 +69,7 @@
         var MapType = new google.maps.ImageMapType(TypeOptions);
         map.mapTypes.set('ulam', MapType);
         map.setMapTypeId('ulam');
-        //map.overlayMapTypes.insertAt(0, new CoordMapType(new google.maps.Size(25,25)));
+        map.overlayMapTypes.insertAt(0, new CoordMapType(new google.maps.Size(50,50)));
       };
 
       function asyncLoad(){

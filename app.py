@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_from_directory, jsonify
+from flask import Flask, render_template, jsonify
 from flask.ext import restful
 from spiral import Spiral
 import json
@@ -11,22 +11,13 @@ spiral = Spiral()
 def index():
     return render_template('base.html')
 
-
 class SpiralClient(restful.Resource):
 
     def get(self, zoom, x, y):
-        #import pdb; pdb.set_trace()
         value = spiral.position(int(x),int(y))
         
-        if zoom == "position":
-            data = value
-        else:
-            if spiral.tempprime(value):
-                data = 'black'
-            else:
-                data = 'white'
-
-            r = {'value':data}
+        r = {'position':value,
+             'prime':spiral.tempprime(value)}
         
         return jsonify(results=r) 
 
