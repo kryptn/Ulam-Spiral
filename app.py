@@ -1,6 +1,7 @@
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, render_template, send_from_directory, Response
 from flask.ext import restful
 from spiral import Spiral
+import json
 
 app = Flask(__name__)
 api = restful.Api(app)
@@ -18,15 +19,15 @@ class SpiralClient(restful.Resource):
         value = spiral.position(int(x),int(y))
         
         if zoom == "position":
-            return value
+            data = value
         else:
             if spiral.tempprime(value):
-                color = 'black'
+                data = 'black'
             else:
-                color = 'white'
-
-        return send_from_directory('static', color+'.png')
+                data = 'white'
         
+        r = Response(response=json.dumps({'data':data}), status=200, mimetype="application/json")
+        return r 
 
 
 
